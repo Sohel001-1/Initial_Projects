@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #d6d6d6;
+        color: #333;
+        text-align: center;
+        padding: 50px;
+      }
+      h1 {
+        color: #4caf50;
+      }
+      p {
+        font-size: 18px;
+        color: blueviolet;
+      }
+
+      input,
+      button {
+        padding: 10px;
+        margin: 5px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Simple Calculator</h1>
+
+    <input type="number" id="n1" placeholder="Enter first number" />
+    <input type="number" id="n2" placeholder="Enter second number" />
+    <br />
+
+    <button onclick="calculate('add')">Add</button>
+    <button onclick="calculate('subtract')">Subtract</button>
+    <button onclick="calculate('multiply')">Multiply</button>
+    <button onclick="calculate('divide')">Divide</button>
+    <button onclick="calculate('modulo')">Modulo</button>
+
+    <p id="result"></p>
+
+    <script>
+      function calculate(operation) {
+        let n1 = parseFloat(document.getElementById("n1").value);
+        let n2 = parseFloat(document.getElementById("n2").value);
+        let result;
+
+        if (isNaN(n1) || isNaN(n2)) {
+          result = "Please enter valid numbers";
+        } else if (operation === "add") {
+          result = add(n1, n2);
+        } else if (operation === "subtract") {
+          result = subtract(n1, n2);
+        } else if (operation === "multiply") {
+          result = multiply(n1, n2);
+        } else if (operation === "divide") {
+          if (n2 === 0) {
+            result = "Cannot divide by Zero";
+          } else {
+            result = divide(n1, n2);
+          }
+        } else if (operation === "modulo") {
+          result = modulo(n1, n2);
+        } else {
+          result = "Unknown operation";
+        }
+
+        document.getElementById("result").innerText = "Result:" + result;
+      }
+
+      function add(a, b) {
+        return a + b;
+      }
+      function subtract(a, b) {
+        return a - b;
+      }
+      function multiply(a, b) {
+        return a * b;
+      }
+      function divide(a, b) {
+        return a / b;
+      }
+      function modulo(a, b) {
+        return a % b;
+      }
+    </script>
+  </body>
+</html>
