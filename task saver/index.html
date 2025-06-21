@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            padding: 40px;
+            background-color: darkgray;
+            text-align: center;
+        }
+        input,button {
+            padding: 10px;
+            margin: 5px;
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+        }
+        li{
+            background: white;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Task Saver</h1>
+
+    <input type="text" id="textInput" placeholder="Enter a new Task Here">
+    <button onclick="addTask()">Add Task</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        window.onload = function(){
+            showTask();
+        };
+
+        function addTask() {
+            const taskText = document.getElementById("textInput").value.trim();
+
+            if (taskText === ""){
+            alert("Please enter a Task!");
+            return;
+            }
+
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+            tasks.push(taskText);
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+
+            document.getElementById("textInput").value = "";
+
+            showTask();
+        }
+
+        function showTask() {
+            const taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";  //dont getit//
+
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+            tasks.forEach(function(task, index){
+                const li = document.createElement("li");
+                li.textContent = task;
+
+                const delBtn = document.createElement("button");
+                delBtn.textContent = "❌";
+                delBtn.style.marginLeft = "10px";
+
+                delBtn.onclick = function(){
+                    deleteTask(index);
+                };
+
+                li.appendChild(delBtn);
+
+                taskList.appendChild(li);
+            });
+        }
+
+        function deleteTask(index) {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+            tasks.splice(index, 1);
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+
+            showTask();
+        }
+    </script>
+</body>
+</html>

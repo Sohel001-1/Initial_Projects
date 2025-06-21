@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 40px;
+            background-color: gray;
+            text-align: center;
+        }
+
+        input{
+            padding: 8px;
+            width: 200px;
+        }
+        button{
+            padding: 8px 15px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        ul{
+            margin-top: 20px;
+            list-style: lower-alpha;
+            padding: 0;
+        }
+        li{
+            background: rgb(7, 247, 107);
+            margin: 5px auto;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid blue;
+            position: relative;
+        }
+        .remove{
+            position: absolute;
+            color: red;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Task</h1>
+    <input type="text" id="taskInput" placeholder="Enter Task">
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        function addTask() {
+            const input = document.getElementById("taskInput");
+            const taskText = input.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+            const li = document.createElement("li");
+            li.textContent = taskText;
+
+            const removebtn = document.createElement("span");
+            removebtn.textContent = "❌";
+            removebtn.classList.add("remove");
+
+            removebtn.onclick = function () {
+                li.remove();
+            }
+            li.appendChild(removebtn);
+            document.getElementById("taskList").appendChild(li);
+            input.value = "";
+
+        }
+    </script>
+</body>
+</html>

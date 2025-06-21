@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    #hadith {
+      margin-top: 30px;
+      font-size: 20px;
+      color: green;
+      /* Add some padding and max-width for better readability */
+      max-width: 800px; 
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px;
+      border: 1px solid #161515;
+      border-radius: 8px;
+      background-color: #c5c2c2;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+    <h1>☪️ Sahih Al-Bukhari</h1>
+    <h2>﷽</h2>
+    <button onclick="getHadith()">Get a Hadith</button>
+    <div id="hadith"></div>
+
+    <script>
+        async function getHadith() {
+            try{
+                document.getElementById("hadith").innerHTML = "Loading...";
+
+                const response = await fetch("https://random-hadith-generator.vercel.app/bukhari/");
+                const data = await response.json();
+
+                const hadithText = data.data.hadith_english;
+                const hadithReference = data.data.refno;
+
+                document.getElementById("hadith").innerHTML = `
+                    ${hadithText}
+                    <br><br>
+                    <strong>Reference: ${hadithReference}</strong>
+                    `;
+
+            } catch(error){
+                document.getElementById("hadith").innerHTML = "Oops! Couldn't fetch a Hadith";
+                console.error("Fetch error:", error);
+                
+            }
+        }
+    </script>
+</body>
+</html>
